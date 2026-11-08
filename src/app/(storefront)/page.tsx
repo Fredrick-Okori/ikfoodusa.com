@@ -9,7 +9,8 @@ import { Hero } from "@/components/Hero";
 import { ProductCard, ProductCardSkeleton } from "@/components/ProductCard";
 import { categoryHref } from "@/data/products";
 import { categoryImage } from "@/lib/catalog";
-import { BRAND } from "@/lib/brand";
+import { BRAND, PARENT } from "@/lib/brand";
+import { FaqJsonLd } from "@/components/JsonLd";
 import { useCategories, useStoreProducts } from "@/lib/useCatalog";
 import { formatUSD } from "@/utils/currency";
 
@@ -62,6 +63,10 @@ const PROCESS = [
 const MARQUEE = ["Grade A beans", "Pure extract", "Ground powder", "Vanilla caviar", "Grade B beans", "Splits"];
 
 const FAQ = [
+  {
+    q: "Where does your vanilla come from?",
+    a: `${BRAND.name} is the US branch of ${PARENT.name}, a vanilla grower and exporter founded in ${PARENT.foundingDate} that works with smallholder farmers in ${PARENT.growingRegion}. We also carry selected vanilla from other origins such as Madagascar. Every product page lists its origin.`,
+  },
   {
     q: "How long does shipping take?",
     a: `Orders ship within 1–2 business days. Standard US delivery takes 3–6 business days. Shipping is free on orders over ${formatUSD(BRAND.freeShippingThreshold)}; below that it's a flat ${formatUSD(BRAND.standardShippingFee)}.`,
@@ -291,6 +296,7 @@ export default function Home() {
 
   return (
     <main ref={mainRef} className="overflow-x-clip bg-beige-50 text-forest-950">
+      <FaqJsonLd items={FAQ} />
       <Hero />
 
       {/* MARQUEE */}
@@ -404,8 +410,8 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
           <div className="grid gap-14 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
             <p data-scrub-words className="text-[clamp(2rem,4.2vw,3.75rem)] font-black leading-[1.05] tracking-[-0.04em]">
-              Nine months on the vine, then months of curing by hand. We buy straight from growers who never rush it,
-              so the flavor runs deep: creamy, smoky, floral.
+              Nine months on the vine, then months of curing by hand. As the US branch of {PARENT.name}, we buy
+              straight from growers who never rush it, so the flavor runs deep: creamy, smoky, floral.
             </p>
             <div data-clip data-parallax className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Plus_Jakarta_Sans, Afacad_Flux } from "next/font/google";
 import { StoreJsonLd } from "@/components/JsonLd";
-import { BRAND } from "@/lib/brand";
+import { BRAND, PARENT } from "@/lib/brand";
 import "./globals.css";
 import { Analytics } from "@/components/Analytics";
 
@@ -34,15 +34,21 @@ export const viewport: Viewport = {
   // No maximumScale: blocking pinch-zoom fails WCAG 1.4.4 (Resize Text).
 };
 
+const DESCRIPTION = `Premium vanilla beans, pure vanilla extract, vanilla powder, caviar and splits, shipped across the USA. ${BRAND.name} is the US branch of ${PARENT.name}, the Ugandan vanilla grower and exporter.`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(BRAND.url),
   title: {
-    default: `${BRAND.name} | Vanilla Beans, Extract, Powder & Caviar`,
+    default: `${BRAND.name} | Premium Vanilla Beans, Extract & Powder`,
     template: `%s | ${BRAND.name}`,
   },
-  description: BRAND.description,
+  description: DESCRIPTION,
+  applicationName: BRAND.name,
+  category: "food",
   keywords: [
     "vanilla beans",
+    "Ugandan vanilla beans",
+    "Uganda vanilla",
     "Grade A vanilla beans",
     "Grade B vanilla beans",
     "pure vanilla extract",
@@ -51,26 +57,28 @@ export const metadata: Metadata = {
     "vanilla bean paste",
     "split vanilla beans",
     "bulk vanilla beans USA",
+    "wholesale vanilla",
     "IK Foods USA",
+    "IK Food Uganda",
   ],
-  authors: [{ name: BRAND.name }],
+  authors: [{ name: BRAND.name, url: BRAND.url }],
   creator: BRAND.name,
   publisher: BRAND.name,
   formatDetection: { email: false, address: false, telephone: false },
   alternates: { canonical: "/" },
   openGraph: {
     title: `${BRAND.name} | Pure Vanilla, From Bean to Bottle`,
-    description: BRAND.description,
+    description: DESCRIPTION,
     url: BRAND.url,
     siteName: BRAND.name,
-    images: [{ url: "/product_hero.avif", width: 4032, height: 3024, alt: "IK Food vanilla beans in glass jars" }],
     locale: "en_US",
     type: "website",
+    // Image comes from app/opengraph-image.tsx.
   },
   twitter: {
     card: "summary_large_image",
-    title: `${BRAND.name} | Pure Vanilla`,
-    description: BRAND.description,
+    title: `${BRAND.name} | Pure Vanilla, From Bean to Bottle`,
+    description: DESCRIPTION,
   },
   robots: {
     index: true,
@@ -82,6 +90,10 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  other: {
+    // Points AI assistants at the plain-text site summary (app/llms.txt/route.ts).
+    "llms-txt": `${BRAND.url}/llms.txt`,
   },
 };
 

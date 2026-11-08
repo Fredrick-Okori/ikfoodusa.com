@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BRAND, brandAddressLine } from "@/lib/brand";
 import { LegalSidebar } from "@/components/LegalSidebar";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 
 /** Effective date shown on every policy page. Update when a policy changes. */
 export const POLICY_EFFECTIVE_DATE = "November 7, 2026";
@@ -27,6 +28,7 @@ export function LegalPage({
 }) {
   return (
     <main className="overflow-x-clip bg-beige-50 text-forest-950">
+      <BreadcrumbJsonLd items={[{ name: "Home", url: "/" }, { name: title, url: current }]} />
       <section className="bg-forest-950 text-beige-50">
         <div className="mx-auto max-w-7xl px-5 pb-16 pt-20 sm:px-8 lg:px-12 lg:pb-20 lg:pt-28">
           <h1

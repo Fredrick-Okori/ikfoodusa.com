@@ -1,7 +1,7 @@
 import { cache } from "react";
 import type { Metadata } from "next";
 import { getStoreProductsCatalog, findProductBySlug } from "@/lib/products";
-import { Product, categoryHref } from "@/data/products";
+import { Product, categoryHref, productHref } from "@/data/products";
 import { BRAND } from "@/lib/brand";
 import { formatSize } from "@/lib/units";
 import ProductDetailClient from "./ProductDetailClient";
@@ -24,8 +24,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   if (!product) {
-    return { title: "Product not found", description: BRAND.description };
+    return { title: "Product not found", description: BRAND.description, robots: { index: false, follow: true } };
   }
+
+  // Each product is its own canonical page (the root layout's canonical is the homepage).
+  const canonical = productHref(product);
 
   const title = `${product.name}${product.size ? ` (${formatSize(product.size)})` : ""} — ${product.category}`;
   const description =
@@ -35,11 +38,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title,
     description,
+    alternates: { canonical },
     openGraph: {
       title,
       description,
+      url: canonical,
       type: "website",
-      images: product.image.startsWith("data:") ? undefined : [{ url: product.image, alt: product.name }],
+      // Inline (data:) images and videos can't be shared; fall back to the site's default card.
+      images:
+        product.image && !product.image.startsWith("data:") && !/\.(mp4|webm|mov|m4v)(\?|$)/i.test(product.image)
+          ? [{ url: product.image, alt: product.name }]
+          : [{ url: "/opengraph-image", width: 1200, height: 630, alt: BRAND.name }],
     },
     twitter: {
       card: "summary_large_image",

@@ -51,7 +51,35 @@ export const PARENT = {
   street: "Atenyi Rd, Seguku",
   city: "Kampala",
   country: "Uganda",
+  /** Facts as published on ikfoodug.com; keep in sync with the parent site. */
+  foundingDate: "2015",
+  growingRegion: "Central Uganda",
+  description:
+    "Ugandan vanilla grower and exporter founded in 2015, working with smallholder farmers in Central Uganda and exporting to Europe, Asia and the United States.",
 } as const;
+
+/** Wholesale/retail policy facts shared by structured data, llms.txt and the FAQ. */
+export const POLICIES = {
+  returnDays: 30,
+  handlingDays: [1, 2] as const,
+  transitDays: [3, 6] as const,
+} as const;
+
+/**
+ * Profiles that represent the brand elsewhere on the web, for schema.org `sameAs`.
+ * Placeholder social URLs (a bare network homepage like "https://instagram.com/") are skipped,
+ * since they would tell search engines the brand *is* that network.
+ */
+export function brandSameAs(): string[] {
+  const real = Object.values(BRAND.social).filter((url) => {
+    try {
+      return new URL(url).pathname.replace(/\/+$/, "").length > 0;
+    } catch {
+      return false;
+    }
+  });
+  return [...real, PARENT.url];
+}
 
 /** One-line postal address, e.g. for invoices and the footer. */
 export const brandAddressLine = () =>

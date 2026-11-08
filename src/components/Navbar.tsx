@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, RefObject, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import gsap from "gsap";
 import { Award, Handshake, LayoutGrid, Leaf, Search, ShoppingBag, Store, Truck, X } from "lucide-react";
 import { Product, categoryHref, productHref } from "@/data/products";
 import { Logo } from "@/components/Logo";
@@ -218,6 +219,28 @@ function OrbitNav({
 }) {
   const pathname = usePathname();
   const ringRef = useRef<HTMLDivElement>(null);
+  const moonOrbitRef = useRef<HTMLSpanElement>(null);
+
+  // Rotate the moon's orbit with page scroll progress (0° at the top, a full turn at the bottom).
+  useEffect(() => {
+    const orbit = moonOrbitRef.current;
+    if (!orbit) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const rotateTo = reduce
+      ? (deg: number) => gsap.set(orbit, { rotation: deg })
+      : gsap.quickTo(orbit, "rotation", { duration: 0.6, ease: "power3.out" });
+    const update = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      rotateTo(max > 0 ? (window.scrollY / max) * 360 : 0);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
 
   const items: { key: string; label: string; Icon: typeof Store; href?: string; badge?: number }[] = [
     ...NAV_LINKS.map((link) => ({
@@ -286,10 +309,11 @@ function OrbitNav({
             }}
           />
 
-          {/* Idle orbit: a small moon circling the hub. */}
+          {/* Idle orbit: the moon travels once around the hub from the top of the page to the bottom. */}
           <span
+            ref={moonOrbitRef}
             aria-hidden
-            className={`pointer-events-none absolute -inset-2.5 rounded-full bg-beige-100 shadow-lg transition-opacity duration-300 motion-safe:animate-[spin_9s_linear_infinite] ${
+            className={`pointer-events-none absolute -inset-2.5 rounded-full bg-beige-100 shadow-lg transition-opacity duration-300 ${
               open ? "opacity-0" : "opacity-100"
             }`}
           >
