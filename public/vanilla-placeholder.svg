@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Vanilla beans illustration">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#faf6ee"/>
+      <stop offset="1" stop-color="#f5edd8"/>
+    </linearGradient>
+    <linearGradient id="pod" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2a1a10"/>
+      <stop offset="0.5" stop-color="#4a2e1b"/>
+      <stop offset="1" stop-color="#2a1a10"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg)"/>
+  <circle cx="400" cy="400" r="250" fill="#9ce800" opacity="0.35"/>
+  <g transform="rotate(-28 400 400)">
+    <path d="M150 380 C 300 350, 500 350, 660 385 C 500 400, 300 405, 150 380 Z" fill="url(#pod)"/>
+    <path d="M140 430 C 300 405, 520 410, 670 440 C 520 455, 300 455, 140 430 Z" fill="url(#pod)"/>
+    <path d="M170 480 C 320 462, 500 465, 640 492 C 500 505, 320 505, 170 480 Z" fill="url(#pod)"/>
+    <path d="M200 381 C 330 372, 480 372, 610 385" stroke="#6b4a2f" stroke-width="2" fill="none" opacity="0.6"/>
+    <path d="M190 431 C 330 424, 500 427, 620 440" stroke="#6b4a2f" stroke-width="2" fill="none" opacity="0.6"/>
+  </g>
+  <g transform="translate(560 230)">
+    <path d="M0 0 C -40 -60, -10 -110, 20 -120 C 30 -80, 25 -35, 0 0 Z" fill="#faf6ee" stroke="#dccba0" stroke-width="2"/>
+    <path d="M0 0 C 50 -45, 100 -30, 110 -5 C 70 10, 30 10, 0 0 Z" fill="#faf6ee" stroke="#dccba0" stroke-width="2"/>
+    <path d="M0 0 C -55 -10, -95 15, -100 40 C -60 45, -25 30, 0 0 Z" fill="#faf6ee" stroke="#dccba0" stroke-width="2"/>
+    <path d="M0 0 C 20 40, 10 85, -15 100 C -30 60, -20 25, 0 0 Z" fill="#faf6ee" stroke="#dccba0" stroke-width="2"/>
+    <path d="M0 0 C 45 25, 70 65, 60 90 C 25 75, 10 40, 0 0 Z" fill="#faf6ee" stroke="#dccba0" stroke-width="2"/>
+    <path d="M-6 -4 C 10 -25, 35 -18, 38 4 C 30 22, 5 22, -6 -4 Z" fill="#ebf9cc" stroke="#7dba00" stroke-width="2"/>
+  </g>
+  <path d="M470 540 C 520 600, 600 630, 660 610 C 610 570, 540 545, 470 540 Z" fill="#464d51"/>
+  <path d="M480 545 C 540 575, 600 600, 650 607" stroke="#252a2d" stroke-width="2" fill="none"/>
+</svg>
