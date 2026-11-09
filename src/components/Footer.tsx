@@ -4,7 +4,6 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Logo } from "@/components/Logo";
 import { BRAND, PARENT } from "@/lib/brand";
 import { categoryHref } from "@/data/products";
 import { useCategories } from "@/lib/useCatalog";
@@ -168,21 +167,15 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col gap-5 border-t border-white/10 py-8 text-sm text-beige-100/50 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-center gap-5">
-            <Link href="/" aria-label={`${BRAND.name} home`} className="shrink-0">
-              <Logo tone="light" size="sm" />
-            </Link>
-            <p>
-              © {new Date().getFullYear()} {BRAND.legalName} · the US branch of {BRAND.parentCompany}.
-            </p>
-          </div>
+          <p>
+            © {new Date().getFullYear()} {BRAND.legalName} · the US branch of {BRAND.parentCompany}.
+          </p>
           <nav aria-label="Legal" className="flex flex-wrap gap-x-6 gap-y-2">
             {LEGAL_LINKS.map((link) => (
               <Link key={link.href} href={link.href} className="py-1 font-semibold transition-colors hover:text-beige-50">
                 {link.label}
               </Link>
             ))}
-            <Link href="/login" className="py-1 font-semibold transition-colors hover:text-beige-50">Staff login</Link>
           </nav>
         </div>
       </div>
