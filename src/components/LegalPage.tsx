@@ -36,7 +36,7 @@ export function LegalPage({
             className="max-w-5xl font-sans text-[clamp(3rem,8vw,7.5rem)] font-black leading-[0.92] tracking-[-0.045em]"
           >
             {title}
-            <span className="text-secondary">.</span>
+            <span className="text-beige-300">.</span>
           </h1>
           <div className="mt-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             {intro && (
@@ -44,7 +44,7 @@ export function LegalPage({
                 {intro}
               </p>
             )}
-            <p data-legal-foot className="shrink-0 text-sm font-bold text-secondary">
+            <p data-legal-foot className="shrink-0 text-sm font-bold text-beige-300">
               Effective {POLICY_EFFECTIVE_DATE}
             </p>
           </div>

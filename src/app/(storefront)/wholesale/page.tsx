@@ -17,7 +17,7 @@ const textarea =
   "w-full resize-y border-0 border-b-2 border-forest-950/15 bg-transparent px-0 py-3 text-base font-semibold text-forest-950 outline-none transition-colors placeholder:font-normal placeholder:text-forest-900/35 focus:border-forest-950";
 const label = "block text-sm font-bold text-forest-900/60";
 const submitButton =
-  "flex items-center justify-center gap-2 rounded-full bg-forest-950 px-8 py-4 text-sm font-extrabold text-beige-50 transition-colors hover:bg-forest-800 disabled:opacity-60 sm:col-span-2 sm:justify-self-start";
+  "flex items-center justify-center gap-2 rounded-full bg-secondary px-8 py-4 text-sm font-extrabold text-forest-950 transition-colors hover:bg-secondary-dark disabled:opacity-60 sm:col-span-2 sm:justify-self-start";
 const heading = "font-sans font-black leading-[0.92] tracking-[-0.045em]";
 
 const BENEFITS = [
@@ -46,7 +46,7 @@ function Success({ title, text, onReset }: { title: string; text: string; onRese
   return (
     <div className="py-10">
       <h3 className={`${heading} text-[clamp(2.25rem,4.5vw,3.75rem)] text-forest-950`}>
-        {title}<span className="text-secondary-deep">.</span>
+        {title}<span className="text-beige-400">.</span>
       </h3>
       <p className="mt-5 max-w-md text-lg leading-relaxed text-forest-900/70">{text}</p>
       <button onClick={onReset} className="mt-8 border-b-2 border-forest-950 pb-1 text-sm font-extrabold hover:border-forest-950/40">
@@ -393,7 +393,7 @@ export default function WholesalePage() {
       <section data-hero className="bg-forest-950 text-beige-50">
         <div className="mx-auto max-w-7xl px-5 pb-20 pt-20 sm:px-8 lg:px-12 lg:pb-28 lg:pt-28">
           <h1 data-hero-title className={`${heading} max-w-6xl text-[clamp(3rem,8.5vw,8rem)]`}>
-            Wholesale vanilla, <span className="text-secondary">direct from the exporter.</span>
+            Wholesale vanilla, <span className="text-beige-300">direct from the exporter.</span>
           </h1>
 
           <div className="mt-14 grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-20">
@@ -432,7 +432,7 @@ export default function WholesalePage() {
       </section>
 
       {/* WE SUPPLY */}
-      <section data-marquee aria-label="Who we supply" className="overflow-hidden bg-secondary py-5 text-forest-950 sm:py-7">
+      <section data-marquee aria-label="Who we supply" className="overflow-hidden bg-beige-100 py-5 text-forest-950 sm:py-7">
         <ul className="sr-only">
           {WHO.map((w) => <li key={w}>{w}</li>)}
         </ul>
@@ -453,38 +453,40 @@ export default function WholesalePage() {
       </section>
 
       {/* BENEFITS */}
-      <section className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
+      <section className="bg-forest-950 text-beige-50">
+      <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
         <h2 data-no-reveal data-split className={`${heading} max-w-4xl text-[clamp(2.75rem,7vw,6rem)]`}>
           What a trade account gets you.
         </h2>
         <ul className="mt-16">
           {BENEFITS.map((b) => (
             <li key={b.title} data-rule className="relative grid gap-3 py-8 md:grid-cols-[1.1fr_1fr] md:items-baseline md:gap-12">
-              <span data-rule-line className="absolute inset-x-0 top-0 h-px origin-left bg-forest-950/20" />
+              <span data-rule-line className="absolute inset-x-0 top-0 h-px origin-left bg-beige-50/15" />
               <h3 data-rule-text className="text-[clamp(1.9rem,4vw,3.25rem)] font-black leading-none tracking-[-0.04em]">
                 {b.title}
               </h3>
-              <p data-rule-text className="max-w-md text-lg leading-relaxed text-forest-900/70">{b.text}</p>
+              <p data-rule-text className="max-w-md text-lg leading-relaxed text-beige-100/65">{b.text}</p>
             </li>
           ))}
         </ul>
-        <span className="block h-px bg-forest-950/20" />
+        <span className="block h-px bg-beige-50/15" />
+      </div>
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="bg-forest-950 text-beige-50">
+      <section className="bg-forest-900 text-beige-50">
         <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
           <h2 data-no-reveal data-split className={`${heading} text-[clamp(2.75rem,7vw,6rem)]`}>
             Three steps to trade prices.
           </h2>
           <div data-steps className="relative mt-16 lg:mt-20">
             <div className="absolute inset-x-0 top-0 h-px bg-white/10">
-              <div data-steps-line className="h-full w-full origin-left bg-secondary" />
+              <div data-steps-line className="h-full w-full origin-left bg-beige-200" />
             </div>
             <ol className="grid gap-10 pt-10 md:grid-cols-3 md:gap-10">
               {STEPS.map((step) => (
                 <li key={step.title} data-step>
-                  <h3 className="text-[clamp(2rem,3.6vw,3rem)] font-black leading-none tracking-[-0.04em] text-secondary">
+                  <h3 className="text-[clamp(2rem,3.6vw,3rem)] font-black leading-none tracking-[-0.04em] text-beige-50">
                     {step.title}
                   </h3>
                   <p className="mt-4 max-w-xs text-base leading-relaxed text-beige-100/70">{step.text}</p>

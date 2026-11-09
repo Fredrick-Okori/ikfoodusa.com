@@ -24,7 +24,7 @@ const inputClass =
 const labelClass = "block text-sm font-bold text-forest-900/60";
 const heading = "font-sans font-black leading-[0.92] tracking-[-0.045em]";
 const primaryButton =
-  "flex w-full items-center justify-center gap-2 rounded-full bg-forest-950 py-4 text-sm font-extrabold text-beige-50 transition-colors hover:bg-forest-800 disabled:opacity-60";
+  "flex w-full items-center justify-center gap-2 rounded-full bg-secondary py-4 text-sm font-extrabold text-forest-950 transition-colors hover:bg-secondary-dark disabled:opacity-60";
 const textLink = "border-b-2 border-forest-950 pb-0.5 font-extrabold transition-colors hover:border-forest-950/40";
 
 /** Formats a 10-digit US number as (555) 123-4567 once complete; leaves anything else as typed. */
@@ -267,9 +267,9 @@ export default function CartPage() {
       <main ref={rootRef as React.Ref<HTMLElement>} className="overflow-x-clip bg-beige-50 text-forest-950">
         <section className="bg-forest-950 text-beige-50">
           <div className="mx-auto max-w-7xl px-5 pb-16 pt-20 sm:px-8 lg:px-12 lg:pb-20 lg:pt-28">
-            <p data-cart-in className="text-base font-extrabold text-secondary">Order {placedOrder.orderNumber}</p>
+            <p data-cart-in className="text-base font-extrabold text-beige-300">Order {placedOrder.orderNumber}</p>
             <h1 key="success" data-cart-title className={`${heading} mt-4 max-w-5xl text-[clamp(3rem,8vw,7.5rem)]`}>
-              Thank you, {placedOrder.customerName.split(" ")[0]}<span className="text-secondary">.</span>
+              Thank you, {placedOrder.customerName.split(" ")[0]}<span className="text-beige-300">.</span>
             </h1>
             <p data-cart-in className="mt-8 max-w-2xl text-lg leading-relaxed text-beige-100/75 sm:text-xl">
               We&apos;ve received your order and will be in touch at{" "}
@@ -296,7 +296,7 @@ export default function CartPage() {
           <div data-cart-in className="mt-14">
             <Link
               href="/shop"
-              className="inline-block rounded-full bg-forest-950 px-8 py-4 text-sm font-extrabold text-beige-50 transition-colors hover:bg-forest-800"
+              className="inline-block rounded-full bg-secondary px-8 py-4 text-sm font-extrabold text-forest-950 transition-colors hover:bg-secondary-dark"
             >
               Continue shopping
             </Link>
@@ -311,7 +311,7 @@ export default function CartPage() {
       <main ref={rootRef as React.Ref<HTMLElement>} className="flex min-h-[80vh] items-center overflow-x-clip bg-forest-950 text-beige-50">
         <div className="mx-auto w-full max-w-7xl px-5 py-24 sm:px-8 lg:px-12">
           <h1 key="empty" data-cart-title className={`${heading} max-w-5xl text-[clamp(3rem,9vw,8.5rem)]`}>
-            Your cart is empty<span className="text-secondary">.</span>
+            Your cart is empty<span className="text-beige-300">.</span>
           </h1>
           <p data-cart-in className="mt-8 max-w-lg text-lg leading-relaxed text-beige-100/75 sm:text-xl">
             Beans, extracts, powder and more are waiting in the shop.
@@ -341,7 +341,7 @@ export default function CartPage() {
         <div className="mx-auto max-w-7xl px-5 pb-12 pt-16 sm:px-8 lg:px-12 lg:pb-14 lg:pt-24">
           <h1 key={step} data-cart-title className={`${heading} text-[clamp(3rem,8vw,7.5rem)]`}>
             {step === "checkout" ? "Checkout" : "Your cart"}
-            <span className="text-secondary">.</span>
+            <span className="text-beige-300">.</span>
           </h1>
 
           {/* Free-shipping progress */}
@@ -352,7 +352,7 @@ export default function CartPage() {
                 : `Add ${formatUSD(amountToFreeShipping)} more for free shipping.`}
             </p>
             <div className="mt-3 h-1 bg-white/15" aria-hidden="true">
-              <div className="h-full bg-secondary transition-[width] duration-700" style={{ width: `${shippingProgress}%` }} />
+              <div className="h-full bg-beige-200 transition-[width] duration-700" style={{ width: `${shippingProgress}%` }} />
             </div>
           </div>
         </div>
@@ -802,7 +802,7 @@ export default function CartPage() {
           {step === "bag" ? (
             <button
               onClick={() => goTo("checkout")}
-              className="rounded-full bg-forest-950 px-6 py-3.5 text-sm font-extrabold text-beige-50"
+              className="rounded-full bg-secondary px-6 py-3.5 text-sm font-extrabold text-forest-950 transition-colors hover:bg-secondary-dark"
             >
               Checkout
             </button>
@@ -811,7 +811,7 @@ export default function CartPage() {
               type="submit"
               form="checkout-form"
               disabled={isSubmitting}
-              className="flex items-center gap-2 rounded-full bg-forest-950 px-6 py-3.5 text-sm font-extrabold text-beige-50 disabled:opacity-60"
+              className="flex items-center gap-2 rounded-full bg-secondary px-6 py-3.5 text-sm font-extrabold text-forest-950 disabled:opacity-60 transition-colors hover:bg-secondary-dark"
             >
               {isSubmitting && <Loader2 size={14} className="animate-spin" />}
               Place order

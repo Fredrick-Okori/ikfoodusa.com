@@ -46,7 +46,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
         <div className="pointer-events-none absolute inset-x-3.5 top-3.5 z-10 flex items-start justify-between gap-2">
           <div className="flex flex-wrap gap-1.5">
             {product.badge && (
-              <span className="rounded-full bg-forest-900 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-secondary">
+              <span className="rounded-full bg-forest-900 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-beige-100">
                 {product.badge}
               </span>
             )}
@@ -71,7 +71,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
             {product.name}
           </h3>
           {bulkPrice && (
-            <p className="mt-1 text-[11px] font-semibold text-secondary-deep">Bulk from {formatUSD(bulkPrice)} each</p>
+            <p className="mt-1 text-[11px] font-semibold text-forest-700">Bulk from {formatUSD(bulkPrice)} each</p>
           )}
         </Link>
 

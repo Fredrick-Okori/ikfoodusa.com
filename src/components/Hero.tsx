@@ -3,9 +3,19 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ShoppingBag } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+import { BRAND, PARENT } from "@/lib/brand";
+import { formatUSD } from "@/utils/currency";
+
+const heading = "font-sans font-black leading-[0.92] tracking-[-0.045em]";
+
+const FACTS = [
+  ["Grown with", PARENT.name],
+  ["Ships in", "1–2 business days"],
+  ["Free US shipping", `Over ${formatUSD(BRAND.freeShippingThreshold)}`],
+];
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -13,121 +23,124 @@ export function Hero() {
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
-    gsap.registerPlugin(ScrollTrigger);
-
+    gsap.registerPlugin(ScrollTrigger, SplitText);
     const media = gsap.matchMedia(section);
-    media.add("(prefers-reduced-motion: no-preference)", () => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl.from("[data-hero-flower]", { autoAlpha: 0, scale: 0.92, duration: 2.2, ease: "power2.out" }, 0)
-        .from("[data-hero-line]", { yPercent: 60, autoAlpha: 0, duration: 0.9, stagger: 0.12 }, 0)
-        .from("[data-hero-cta]", { autoAlpha: 0, y: 16, duration: 0.6 }, "-=0.6")
-        .from("[data-hero-scroll]", { autoAlpha: 0, duration: 0.6 }, "-=1");
+    let cancelled = false;
 
-      gsap.to("[data-neon-layer]", {
-        opacity: 0.75,
-        duration: 2.6,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-        delay: 2.6,
-      });
+    // Wait for the web fonts so the headline splits at its real line breaks.
+    document.fonts.ready.then(() => {
+      if (cancelled) return;
+      media.add(
+        { motion: "(prefers-reduced-motion: no-preference)", wide: "(min-width: 1024px)" },
+        (context) => {
+          const { motion, wide } = context.conditions as { motion: boolean; wide: boolean };
+          if (!motion) return;
 
-      // Scroll-linked zoom: as the hero scrolls away the headline grows toward the viewer (staying fully visible)
-      // while the flower shrinks back; scrolling up reverses it. `scrub` eases the animation toward the scroll
-      // position instead of snapping to it, which is what makes it feel smooth.
-      const zoom = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: section,
-          start: "clamp(top bottom)",
-          end: "bottom top",
-          scrub: 1, // Lenis smooths the scroll itself; this adds a gentle extra glide
-          invalidateOnRefresh: true,
-        },
-      });
-      zoom
-        .to("[data-hero-zoom]", { scale: 1.9, y: () => window.innerHeight * 0.22 }, 0)
-        .to("[data-hero-flower-zoom]", { scale: 0.45, rotate: 14, autoAlpha: 0 }, 0)
-        .to("[data-hero-cta-zoom]", { y: () => window.innerHeight * 0.18, autoAlpha: 0, duration: 0.6 }, 0);
+          // globals.css hides the headline and clips the photo until this runs.
+          gsap.set("[data-hero-title]", { autoAlpha: 1 });
+          const title = SplitText.create("[data-hero-title]", { type: "lines", mask: "lines" });
+          gsap.set(title.masks, { paddingBottom: "0.14em", marginBottom: "-0.14em" });
+
+          gsap
+            .timeline({ defaults: { ease: "expo.out" } })
+            .fromTo(title.lines, { yPercent: 110 }, { yPercent: 0, duration: 1.4, stagger: 0.11 }, 0.1)
+            .fromTo(
+              "[data-hero-media]",
+              { clipPath: "inset(18% 22% 18% 22% round 32px)" },
+              { clipPath: "inset(0% 0% 0% 0% round 28px)", duration: 1.7, ease: "expo.inOut" },
+              0
+            )
+            .fromTo("[data-hero-media] img", { scale: 1.4 }, { scale: 1.08, duration: 2.2 }, 0)
+            .fromTo("[data-hero-foot]", { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 1, stagger: 0.1 }, 0.7)
+            .fromTo("[data-hero-rule-line]", { scaleX: 0 }, { scaleX: 1, duration: 1.3, ease: "expo.inOut", stagger: 0.12 }, 0.8)
+            .fromTo("[data-hero-fact]", { yPercent: 100 }, { yPercent: 0, duration: 1, stagger: 0.1 }, 1.1);
+
+          // Scrolling away: the photo drifts inside its frame and the headline lifts off.
+          gsap.to("[data-hero-media] img", {
+            yPercent: 10,
+            ease: "none",
+            scrollTrigger: { trigger: section, start: "top top", end: "bottom top", scrub: true },
+          });
+          gsap.to("[data-hero-copy]", {
+            yPercent: wide ? -18 : -8,
+            ease: "none",
+            scrollTrigger: { trigger: section, start: "top top", end: "bottom top", scrub: true },
+          });
+        }
+      );
     });
 
-    return () => media.revert();
+    return () => {
+      cancelled = true;
+      media.revert();
+    };
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      aria-labelledby="hero-title"
-      className="relative isolate overflow-hidden bg-[#111210] text-white"
-    >
-      {/* Neon backdrop */}
-      <div data-neon-layer aria-hidden="true" className="absolute inset-0 -z-10">
-        {/* Faint neon vanilla orchid behind the headline (outer layer zooms on scroll) */}
-        <div data-hero-flower-zoom className="absolute inset-0 will-change-transform">
-        <div
-          data-hero-flower
-          className="absolute left-1/2 top-1/2 aspect-[633/570] w-[min(70vw,32rem)] -translate-x-1/2 -translate-y-1/2 opacity-[0.34] sm:w-[min(50vw,32rem)]"
-        >
-          <Image
-            src="/flowering.png"
-            alt=""
-            fill
-            priority
-            sizes="(min-width: 1024px) 512px, 70vw"
-            className="-rotate-[8deg] object-contain"
-            style={{
-              filter:
-                "brightness(1.35) saturate(1.5) drop-shadow(0 0 3px var(--color-secondary)) drop-shadow(0 0 14px rgba(156,232,0,0.7)) drop-shadow(0 0 36px rgba(156,232,0,0.45))",
-            }}
-          />
-        </div>
-        </div>
-        {/* soft green haze behind the headline */}
-        <div className="absolute left-1/2 top-1/2 h-[40%] w-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary/[0.06] blur-[90px]" />
-      </div>
+    <section ref={sectionRef} aria-labelledby="hero-title" className="relative overflow-hidden bg-forest-950 text-beige-50">
+      <div className="mx-auto flex min-h-[calc(100svh-88px)] max-w-7xl flex-col px-5 pb-10 pt-14 sm:min-h-[calc(100svh-6rem)] sm:px-8 lg:min-h-[calc(100svh-106px)] lg:px-12 lg:pb-12 lg:pt-20">
+        <div className="grid flex-1 gap-12 lg:grid-cols-[1.35fr_0.65fr] lg:items-end lg:gap-14">
+          <div data-hero-copy>
+            <h1
+              id="hero-title"
+              data-hero-title
+              data-no-reveal
+              className={`${heading} text-[clamp(3.25rem,9.6vw,9.25rem)]`}
+            >
+              Pure vanilla, from bean to bottle<span className="text-beige-300">.</span>
+            </h1>
 
-      <div className="mx-auto flex min-h-[calc(100svh-88px)] max-w-7xl flex-col items-center justify-center px-4 py-16 sm:min-h-[calc(100svh-6rem)] sm:px-6 lg:min-h-[calc(100svh-106px)] lg:px-10">
-        <div data-hero-zoom className="pointer-events-none relative text-[clamp(2.75rem,16vw,9.5rem)] will-change-transform">
-          <h1
-            id="hero-title"
-            className="relative z-10 text-center font-sans font-black leading-[0.88] tracking-[-0.045em]"
+            <div className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between lg:mt-14">
+              <p data-hero-foot className="max-w-md text-lg leading-relaxed text-beige-100/70 sm:text-xl">
+                Hand-pollinated, slow-cured vanilla beans, extract and powder, shipped across the US by the American
+                branch of {PARENT.name}.
+              </p>
+              <div data-hero-foot className="flex shrink-0 flex-wrap items-center gap-8">
+                <Link
+                  href="/shop"
+                  className="rounded-full bg-secondary px-7 py-4 text-sm font-extrabold text-forest-950 transition-colors hover:bg-secondary-dark"
+                >
+                  Shop vanilla
+                </Link>
+                <Link
+                  href="/our-vanilla"
+                  className="border-b-2 border-secondary pb-1 text-sm font-extrabold text-secondary transition-colors hover:border-beige-50 hover:text-beige-50"
+                >
+                  Our story
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div
+            data-hero-media
+            className="relative order-first aspect-[16/11] overflow-hidden rounded-[1.75rem] bg-forest-900 sm:aspect-[16/10] lg:order-none lg:aspect-[4/5]"
           >
-            <span data-hero-line className="block text-[#8d8f8a]">
-              Pure vanilla,
-            </span>
-            <span data-hero-line className="block">
-              from bean
-            </span>
-            <span data-hero-line className="block">
-              to bottle<span className="text-secondary">.</span>
-            </span>
-          </h1>
+            <Image
+              src="/our-vanilla-cured-bundle.jpg"
+              alt="A bundle of glossy, cured dark vanilla beans tied with twine"
+              fill
+              priority
+              sizes="(min-width: 1024px) 34vw, 100vw"
+              className="scale-[1.08] object-cover"
+            />
+          </div>
         </div>
 
-        <div data-hero-cta-zoom className="relative z-20">
-        <Link
-          data-hero-cta
-          href="/shop"
-          className="group mt-10 inline-flex items-center gap-4 rounded-full py-2 pl-5 pr-2 text-sm font-extrabold uppercase tracking-wide text-white transition-colors hover:bg-white/5 sm:mt-14 sm:text-base"
-        >
-          Shop vanilla
-          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-beige-50 text-forest-950 shadow-[0_0_0_0_rgba(156,232,0,0.6)] transition duration-300 group-hover:bg-secondary group-hover:shadow-[0_0_24px_4px_rgba(156,232,0,0.45)] sm:h-14 sm:w-14">
-            <ShoppingBag size={20} aria-hidden="true" />
-          </span>
-        </Link>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div
-        data-hero-scroll
-        aria-hidden="true"
-        className="absolute right-8 top-1/2 hidden h-[34%] -translate-y-1/2 flex-col items-center lg:flex"
-      >
-        <span className="w-px flex-1 bg-gradient-to-b from-transparent via-secondary/60 to-secondary shadow-[0_0_6px_rgba(156,232,0,0.8),0_0_14px_rgba(156,232,0,0.45)]" />
-        <span className="mt-0 flex h-6 w-6 items-center justify-center rounded-full border border-secondary shadow-[0_0_8px_rgba(156,232,0,0.7),inset_0_0_6px_rgba(156,232,0,0.35)]">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-secondary shadow-[0_0_8px_2px_rgba(156,232,0,0.9)]" />
-        </span>
+        {/* Ruled facts */}
+        <dl className="mt-14 grid gap-x-10 sm:grid-cols-3 lg:mt-20">
+          {FACTS.map(([label, value]) => (
+            <div key={label} className="relative pt-5 pb-1">
+              <span data-hero-rule-line className="absolute inset-x-0 top-0 block h-px origin-left bg-beige-50/20" />
+              <div className="overflow-hidden">
+                <div data-hero-fact className="flex items-baseline justify-between gap-4 sm:block">
+                  <dt className="text-sm font-bold text-beige-100/50">{label}</dt>
+                  <dd className="text-lg font-extrabold tracking-[-0.02em] text-beige-50 sm:mt-1">{value}</dd>
+                </div>
+              </div>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

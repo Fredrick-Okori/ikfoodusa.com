@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { categoryHref } from "@/data/products";
 import { BRAND, PARENT } from "@/lib/brand";
+import { emberWords } from "@/lib/emberWords";
 
 /** Pod colour at each curing step: fresh green → dulled → brown → dark → near-black. */
 const POD_COLORS = ["#7f9d3c", "#6d7a34", "#7a4b26", "#4c2f19", "#2a1a10"];
@@ -172,16 +173,7 @@ export function OurVanillaStory() {
           /* ---------- Garden: words light up as you read ---------- */
           gsap.utils.toArray<HTMLElement>("[data-scrub-words]").forEach((el) => {
             const split = SplitText.create(el, { type: "words" });
-            gsap.fromTo(
-              split.words,
-              { opacity: 0.14 },
-              {
-                opacity: 1,
-                ease: "none",
-                stagger: 0.08,
-                scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 50%", scrub: true },
-              }
-            );
+            emberWords(el, split.words);
           });
 
           gsap.fromTo(
@@ -331,7 +323,7 @@ export function OurVanillaStory() {
   return (
     <div ref={rootRef} className="group/story overflow-x-clip bg-beige-50 text-forest-950">
       {/* ================= HERO ================= */}
-      <section data-hero className="relative flex min-h-[100svh] items-end overflow-hidden bg-secondary text-beige-50">
+      <section data-hero className="relative flex min-h-[100svh] items-end overflow-hidden bg-forest-950 text-beige-50">
         <div data-hero-media className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -349,7 +341,7 @@ export function OurVanillaStory() {
             className="max-w-5xl font-sans text-[clamp(2.8rem,8vw,7.5rem)] font-black leading-[0.9] tracking-[-0.045em]"
           >
             Nine months on the vine.{" "}
-            <em className="not-italic text-secondary">Six more</em> to become vanilla.
+            <em className="not-italic text-beige-300">Six more</em> to become vanilla.
           </h1>
           <div data-hero-foot className="mt-10 flex flex-wrap items-end justify-between gap-6">
             <p className="max-w-md text-base leading-relaxed text-beige-100/80">
@@ -374,12 +366,12 @@ export function OurVanillaStory() {
               className="mt-6 font-sans text-[clamp(1.7rem,3.2vw,2.9rem)] font-bold leading-[1.15] tracking-[-0.035em] text-forest-950"
             >
               Vanilla is the fruit of an orchid. Its pale flower opens for a few hours on one morning, and far from
-              Mexico no bee knows how to pollinate it. So at dawn, growers walk the rows and do it by hand, flower by
-              flower, with a sliver of wood and a thumb.
+              Mexico no bee knows how to pollinate it. So at dawn, growers walk the rows and do it{" "}
+              <span data-ember className="text-ember-500">by hand, flower by flower,</span> with a sliver of wood and a thumb.
             </p>
           </div>
           <div className="relative mx-auto aspect-square w-full max-w-md">
-            <div className="absolute inset-[8%] rounded-full bg-secondary-light" />
+            <div className="absolute inset-[8%] rounded-full bg-beige-200" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               data-flower
@@ -420,7 +412,7 @@ export function OurVanillaStory() {
           <div className="relative flex h-[44svh] items-center justify-center gap-8 group-data-[animated=true]/story:h-[34svh] lg:h-[70svh] lg:group-data-[animated=true]/story:h-[78svh]">
             {/* Progress rail */}
             <div className="absolute left-0 top-0 hidden h-full w-px bg-white/10 group-data-[animated=true]/story:block">
-              <div data-cure-progress className="h-full w-full origin-top scale-y-0 bg-secondary" />
+              <div data-cure-progress className="h-full w-full origin-top scale-y-0 bg-beige-200" />
             </div>
             <div data-pod-svg className="h-full">
               <VanillaPod className="h-full w-auto drop-shadow-[0_30px_40px_rgba(0,0,0,0.45)]" />
@@ -428,7 +420,7 @@ export function OurVanillaStory() {
           </div>
 
           <div>
-            <p className="text-base font-extrabold tracking-tight text-secondary">Curing</p>
+            <p className="text-base font-extrabold tracking-tight text-beige-300">Curing</p>
             <h2 data-no-reveal className="mt-3 max-w-xl font-sans text-[clamp(2.2rem,4.4vw,4rem)] font-black leading-[1.02] tracking-[-0.045em]">
               Where the flavor is made, slowly.
             </h2>
@@ -437,7 +429,7 @@ export function OurVanillaStory() {
                 <div key={step.title} data-step className="max-w-xl group-data-[animated=true]/story:[grid-area:1/1]">
                   <p className="font-sans text-[clamp(2.4rem,4.6vw,4.25rem)] font-black leading-none tracking-[-0.045em] text-beige-50">
                     {step.title}
-                    <span className="ml-3 align-middle font-sans text-sm font-semibold text-secondary">{step.time}</span>
+                    <span className="ml-3 align-middle font-sans text-sm font-semibold tracking-normal text-beige-300">{step.time}</span>
                   </p>
                   <p className="mt-5 text-base leading-relaxed text-beige-100/75 sm:text-lg">{step.text}</p>
                 </div>
@@ -501,7 +493,7 @@ export function OurVanillaStory() {
       <section data-finished id="finished" className="relative overflow-hidden bg-forest-900 text-beige-50 lg:h-[100svh]">
         <div data-track className="flex h-full flex-col gap-6 px-5 py-24 sm:px-8 lg:w-max lg:flex-row lg:items-center lg:gap-8 lg:px-12 lg:py-0">
           <div className="flex shrink-0 flex-col justify-center lg:w-[34vw] lg:pr-10">
-            <p className="text-base font-extrabold tracking-tight text-secondary">The finished product</p>
+            <p className="text-base font-extrabold tracking-tight text-beige-300">The finished product</p>
             <h2 data-no-reveal data-split className="mt-3 font-sans text-[clamp(2.4rem,5vw,4.75rem)] font-black leading-[1] tracking-[-0.045em]">
               Then it crosses an ocean to you.
             </h2>
@@ -528,11 +520,11 @@ export function OurVanillaStory() {
               <div className="absolute inset-0 bg-gradient-to-t from-forest-950/90 via-forest-950/20 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-7 sm:p-10">
                 <div>
-                  <p className="text-sm font-extrabold text-secondary">No. {index + 1}</p>
+                  <p className="text-sm font-extrabold text-beige-300">No. {index + 1}</p>
                   <h3 className="font-sans text-[clamp(2.2rem,4vw,3.75rem)] font-black leading-none tracking-[-0.045em]">{item.name}</h3>
                   <p className="mt-4 max-w-sm text-sm leading-relaxed text-beige-100/80 sm:text-base">{item.text}</p>
                 </div>
-                <span className="hidden shrink-0 border-b border-beige-50/60 pb-0.5 text-sm font-semibold transition group-hover:border-secondary group-hover:text-secondary sm:block">
+                <span className="hidden shrink-0 border-b-2 border-secondary pb-0.5 text-sm font-extrabold text-secondary transition group-hover:border-beige-50 group-hover:text-beige-50 sm:block">
                   Shop
                 </span>
               </div>
@@ -547,7 +539,7 @@ export function OurVanillaStory() {
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 py-24 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20 lg:px-12 lg:py-32">
           <div>
             <h2 data-no-reveal data-split className="font-sans text-[clamp(2.6rem,5.6vw,5.25rem)] font-black leading-[0.98] tracking-[-0.045em]">
-              Those black flecks in real vanilla ice cream? <em className="not-italic text-secondary">A year of work.</em>
+              Those black flecks in real vanilla ice cream? <em className="not-italic text-beige-300">A year of work.</em>
             </h2>
             <p className="mt-8 max-w-md text-lg leading-relaxed text-beige-100/70">
               The last step happens in your kitchen. We just make sure the bean that gets there was worth the wait.
@@ -561,7 +553,7 @@ export function OurVanillaStory() {
               </Link>
               <Link
                 href="/wholesale"
-                className="border-b border-beige-50/50 pb-0.5 text-sm font-semibold transition hover:border-secondary hover:text-secondary"
+                className="border-b-2 border-secondary pb-1 text-sm font-extrabold text-secondary transition hover:border-beige-50 hover:text-beige-50"
               >
                 Buying for a bakery or brand?
               </Link>

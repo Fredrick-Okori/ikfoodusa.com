@@ -102,7 +102,7 @@ export function LegalSidebar() {
   return (
     <nav aria-label="On this page" className="relative hidden pl-6 lg:block">
       <span className="absolute inset-y-0 left-0 w-px bg-forest-950/15">
-        <span data-legal-progress className="block h-full w-full origin-top bg-secondary-deep" />
+        <span data-legal-progress className="block h-full w-full origin-top bg-forest-950" />
       </span>
       <p className="text-sm font-bold text-forest-900/50">On this page</p>
       <ol className="mt-4 space-y-2.5">

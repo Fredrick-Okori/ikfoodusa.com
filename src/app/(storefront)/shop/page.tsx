@@ -265,7 +265,7 @@ function ShopContent() {
         <div className="mx-auto max-w-7xl px-5 pb-12 pt-16 sm:px-8 lg:px-12 lg:pb-14 lg:pt-24">
           <h1 key={title} data-shop-title className={`${heading} max-w-5xl text-[clamp(3rem,8vw,7.5rem)]`}>
             {title}
-            <span className="text-secondary">.</span>
+            <span className="text-beige-300">.</span>
           </h1>
           <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-end lg:gap-20">
             <p data-shop-in className="max-w-xl text-lg leading-relaxed text-beige-100/75 sm:text-xl">
@@ -380,7 +380,7 @@ function ShopContent() {
             ) : (
               <div className="border-t border-forest-950/15 py-16">
                 <p className={`${heading} max-w-2xl text-[clamp(2.25rem,4.5vw,3.75rem)]`}>
-                  Nothing matches those filters<span className="text-secondary-deep">.</span>
+                  Nothing matches those filters<span className="text-beige-400">.</span>
                 </p>
                 <p className="mt-5 max-w-md text-lg leading-relaxed text-forest-900/70">
                   Try a different category or clear your filters to see everything we have in stock.
@@ -388,7 +388,7 @@ function ShopContent() {
                 <div className="mt-10 flex flex-wrap items-center gap-8">
                   <button
                     onClick={clearAllFilters}
-                    className="rounded-full bg-forest-950 px-7 py-4 text-sm font-extrabold text-beige-50 transition-colors hover:bg-forest-800"
+                    className="rounded-full bg-secondary px-7 py-4 text-sm font-extrabold text-forest-950 transition-colors hover:bg-secondary-dark"
                   >
                     Clear filters
                   </button>
@@ -419,7 +419,7 @@ function ShopContent() {
               </button>
               <button
                 onClick={() => setMobileFilterOpen(false)}
-                className="flex-1 rounded-full bg-forest-950 py-4 text-sm font-extrabold text-beige-50"
+                className="flex-1 rounded-full bg-secondary py-4 text-sm font-extrabold text-forest-950 transition-colors hover:bg-secondary-dark"
               >
                 Show {filteredProducts.length} {filteredProducts.length === 1 ? "product" : "products"}
               </button>

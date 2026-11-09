@@ -67,7 +67,7 @@ export function PrivacyChoicesForm() {
   return (
     <div>
       {gpc && (
-        <p className="mb-8 border-l-4 border-secondary pl-5 text-base leading-relaxed text-forest-950">
+        <p className="mb-8 border-l-4 border-beige-400 pl-5 text-base leading-relaxed text-forest-950">
           <strong className="font-extrabold">Global Privacy Control detected.</strong> Your browser is sending a Global Privacy Control signal. We&rsquo;re honoring it: optional analytics are off
           and you&rsquo;re opted out of any sale or sharing. To change this, turn off GPC in your browser.
         </p>

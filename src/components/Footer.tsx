@@ -62,7 +62,7 @@ export function Footer() {
         <div className="grid gap-12 border-b border-white/10 pb-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-20">
           <div>
             <p className="font-sans text-[clamp(2.75rem,6.5vw,5.75rem)] font-black leading-[0.92] tracking-[-0.045em] text-beige-50">
-              Get the Vanilla Letter<span className="text-secondary">.</span>
+              Get the Vanilla Letter<span className="text-beige-300">.</span>
             </p>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-beige-100/65">
               Harvest updates, baking recipes and early access to small-lot beans.
@@ -194,7 +194,7 @@ export function Footer() {
         className="select-none whitespace-nowrap px-3 pb-[0.04em] text-center font-sans text-[clamp(4rem,19vw,20rem)] font-black leading-[0.9] tracking-[-0.06em] text-beige-50"
       >
         {BRAND.shortName}
-        <span className="text-secondary">.</span>
+        <span className="text-beige-300">.</span>
       </p>
     </footer>
   );

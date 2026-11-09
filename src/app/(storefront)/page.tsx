@@ -11,6 +11,7 @@ import { categoryHref } from "@/data/products";
 import { categoryImage } from "@/lib/catalog";
 import { BRAND, PARENT } from "@/lib/brand";
 import { FaqJsonLd } from "@/components/JsonLd";
+import { emberWords } from "@/lib/emberWords";
 import { useCategories, useStoreProducts } from "@/lib/useCatalog";
 import { formatUSD } from "@/utils/currency";
 
@@ -164,11 +165,7 @@ export default function Home() {
         // Story statement lights up word by word.
         gsap.utils.toArray<HTMLElement>("[data-scrub-words]").forEach((el) => {
           const split = SplitText.create(el, { type: "words" });
-          gsap.fromTo(
-            split.words,
-            { opacity: 0.15 },
-            { opacity: 1, stagger: 0.08, ease: "none", scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 50%", scrub: true } }
-          );
+          emberWords(el, split.words);
         });
 
         // Process steps light up one after another.
@@ -295,12 +292,12 @@ export default function Home() {
   }, [isLoading, featured.length, categories.length]);
 
   return (
-    <main ref={mainRef} className="overflow-x-clip bg-beige-50 text-forest-950">
+    <main ref={mainRef} className="overflow-x-clip bg-forest-950 text-beige-50">
       <FaqJsonLd items={FAQ} />
       <Hero />
 
       {/* MARQUEE */}
-      <div data-marquee aria-hidden className="overflow-hidden bg-secondary py-5 text-forest-950 sm:py-7">
+      <div data-marquee aria-hidden className="overflow-hidden bg-beige-100 py-5 text-forest-950 sm:py-7">
         <div data-marquee-track className="flex w-max">
           {[0, 1].map((copy) => (
             <div key={copy} className="flex shrink-0 items-center">
@@ -318,7 +315,8 @@ export default function Home() {
       </div>
 
       {/* FEATURED PRODUCTS */}
-      <section className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
+      <section className="bg-beige-50 text-forest-950">
+      <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <h2 data-no-reveal data-split className={`${heading} max-w-3xl text-[clamp(2.75rem,7vw,6rem)]`}>
             Picked for <span className="text-forest-600">your kitchen.</span>
@@ -340,15 +338,16 @@ export default function Home() {
         {!isLoading && featured.length === 0 && (
           <p className="mt-10 text-lg text-forest-900/75">Fresh stock is on its way. Check back soon.</p>
         )}
+      </div>
       </section>
 
       {/* SHOP BY FORM: an index of big names; on desktop a photo follows the cursor */}
-      <section className="mx-auto max-w-7xl px-5 pb-24 sm:px-8 lg:px-12 lg:pb-36">
+      <section className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <h2 data-no-reveal data-split className={`${heading} text-[clamp(2.75rem,7vw,6rem)]`}>
             Every way to use vanilla.
           </h2>
-          <p className="max-w-xs text-base leading-relaxed text-forest-900/70">
+          <p className="max-w-xs text-base leading-relaxed text-beige-100/65">
             Beans to scrape, extract to measure, powder to bake with. Pick a form.
           </p>
         </div>
@@ -375,24 +374,24 @@ export default function Home() {
                     data-image={image}
                     className="group relative flex items-center gap-5 py-5 sm:py-7"
                   >
-                    <span data-rule-line className="absolute inset-x-0 top-0 h-px origin-left bg-forest-950/20" />
+                    <span data-rule-line className="absolute inset-x-0 top-0 h-px origin-left bg-beige-50/15" />
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={image} alt="" loading="lazy" className="h-16 w-16 shrink-0 rounded-xl bg-white object-cover lg:hidden" />
                     <span className="flex min-w-0 flex-1 items-start overflow-hidden">
                       <span
                         data-cat-name
-                        className="block text-[clamp(1.9rem,5.5vw,4.75rem)] font-black leading-[1.02] tracking-[-0.045em] transition-[color,translate] duration-500 group-hover:translate-x-3 group-hover:text-forest-600"
+                        className="block text-[clamp(1.9rem,5.5vw,4.75rem)] font-black leading-[1.02] tracking-[-0.045em] transition-[color,translate] duration-500 group-hover:translate-x-3 group-hover:text-secondary"
                       >
                         {category.name}
                       </span>
                       {!isLoading && count > 0 && (
-                        <sup className="ml-2 mt-2 text-xs font-bold text-forest-900/60 sm:text-sm">{count}</sup>
+                        <sup className="ml-2 mt-2 text-xs font-bold text-beige-100/50 sm:text-sm">{count}</sup>
                       )}
                     </span>
-                    <span className="hidden max-w-xs text-sm leading-relaxed text-forest-900/60 xl:block">{category.description}</span>
+                    <span className="hidden max-w-xs text-sm leading-relaxed text-beige-100/55 xl:block">{category.description}</span>
                     <span
                       aria-hidden
-                      className="text-2xl font-black text-forest-950/30 transition duration-500 group-hover:translate-x-1 group-hover:text-forest-950"
+                      className="text-2xl font-black text-beige-50/30 transition duration-500 group-hover:translate-x-1 group-hover:text-secondary"
                     >
                       &rarr;
                     </span>
@@ -401,17 +400,17 @@ export default function Home() {
               );
             })}
           </ul>
-          <span className="block h-px bg-forest-950/20" />
+          <span className="block h-px bg-beige-50/15" />
         </div>
       </section>
 
       {/* STORY */}
-      <section id="story" className="scroll-mt-32 bg-forest-950 text-beige-50">
+      <section id="story" className="scroll-mt-32 bg-forest-900 text-beige-50">
         <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
           <div className="grid gap-14 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
             <p data-scrub-words className="text-[clamp(2rem,4.2vw,3.75rem)] font-black leading-[1.05] tracking-[-0.04em]">
               Nine months on the vine, then months of curing by hand. As the US branch of {PARENT.name}, we buy
-              straight from growers who never rush it, so the flavor runs deep: creamy, smoky, floral.
+              straight from growers who never rush it, so the flavor runs deep: <span data-ember className="text-ember-500">creamy, smoky, floral.</span>
             </p>
             <div data-clip data-parallax className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -426,12 +425,12 @@ export default function Home() {
 
           <div data-process className="relative mt-20 lg:mt-28">
             <div className="absolute inset-x-0 top-0 h-px bg-white/10">
-              <div data-process-line className="h-full w-full origin-left bg-secondary" />
+              <div data-process-line className="h-full w-full origin-left bg-beige-200" />
             </div>
             <ol className="grid gap-10 pt-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
               {PROCESS.map((step) => (
                 <li key={step.title} data-process-step>
-                  <h3 className="text-2xl font-black tracking-[-0.03em] text-secondary sm:text-3xl">{step.title}</h3>
+                  <h3 className="text-2xl font-black tracking-[-0.03em] text-beige-50 sm:text-3xl">{step.title}</h3>
                   <p className="mt-3 max-w-[16rem] text-sm leading-relaxed text-beige-100/70">{step.text}</p>
                 </li>
               ))}
@@ -448,7 +447,8 @@ export default function Home() {
       </section>
 
       {/* GRADE GUIDE */}
-      <section id="guide" className="mx-auto max-w-7xl scroll-mt-32 px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
+      <section id="guide" className="scroll-mt-32 bg-beige-100 text-forest-950">
+      <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
           <h2 data-no-reveal data-split className={`${heading} text-[clamp(2.75rem,7vw,6rem)]`}>
             Grade A, Grade B, or something else?
@@ -476,7 +476,7 @@ export default function Home() {
                 >
                   {row.form}
                 </Link>
-                <span data-rule-text className="text-base font-bold text-secondary-deep">
+                <span data-rule-text className="text-base font-extrabold text-forest-950">
                   <span className="font-medium text-forest-900/60 md:hidden">Moisture </span>
                   {row.moisture}
                 </span>
@@ -487,41 +487,42 @@ export default function Home() {
           </ul>
           <span className="block h-px bg-forest-950/20" />
         </div>
+      </div>
       </section>
 
       {/* WHOLESALE */}
-      <section id="wholesale" data-wholesale className="scroll-mt-32 overflow-hidden bg-secondary text-forest-950">
+      <section id="wholesale" data-wholesale className="scroll-mt-32 overflow-hidden bg-forest-950 text-beige-50">
         <div className="py-20 lg:py-28">
           <p
             data-slide-x
             aria-hidden
-            className="whitespace-nowrap text-[clamp(4rem,14vw,13rem)] font-black leading-none tracking-[-0.05em]"
+            className="whitespace-nowrap text-[clamp(4rem,14vw,13rem)] font-black leading-none tracking-[-0.05em] text-beige-100"
           >
             Buying by the pound? Buying by the pound?
           </p>
           <div className="mx-auto mt-14 grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[1fr_1fr] lg:items-center lg:px-12">
             <div>
               <h2 data-no-reveal className="sr-only">Buying by the pound?</h2>
-              <p className="max-w-xl text-xl leading-relaxed text-forest-950/80 sm:text-2xl">
+              <p className="max-w-xl text-xl leading-relaxed text-beige-100/75 sm:text-2xl">
                 Bakeries, ice cream makers, manufacturers and distributors get trade pricing, volume discounts, PO
                 numbers and Net-30 invoicing, sourced direct from our parent exporter, IK Food Uganda.
               </p>
               <div className="mt-10 flex flex-wrap items-center gap-8">
                 <Link
                   href="/wholesale"
-                  className="rounded-full bg-forest-950 px-7 py-4 text-sm font-extrabold text-beige-50 transition hover:bg-forest-800"
+                  className="rounded-full bg-secondary px-7 py-4 text-sm font-extrabold text-forest-950 transition hover:bg-secondary-dark"
                 >
                   Open a trade account
                 </Link>
                 <Link
                   href="/wholesale#apply"
-                  className="border-b-2 border-forest-950 pb-1 text-sm font-extrabold transition hover:border-forest-950/50"
+                  className="border-b-2 border-secondary pb-1 text-sm font-extrabold text-secondary transition hover:border-beige-50 hover:text-beige-50"
                 >
                   Request a bulk or export quote
                 </Link>
               </div>
             </div>
-            <div data-clip className="relative aspect-[4/3] overflow-hidden rounded-[1.75rem] bg-white">
+            <div data-clip className="relative aspect-[4/3] overflow-hidden rounded-[1.75rem] bg-beige-50">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/Natural-Vanilla-Vanilla-Extract-Sugar-Free-Range.jpg"
@@ -535,7 +536,7 @@ export default function Home() {
       </section>
 
       {/* SHIPPING & FAQ */}
-      <section id="shipping" className="mx-auto max-w-7xl scroll-mt-32 px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
+      <section id="shipping" className="mx-auto max-w-7xl scroll-mt-32 border-t border-beige-50/10 px-5 py-24 sm:px-8 lg:px-12 lg:py-36">
         <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
           <h2 data-no-reveal data-split className={`${heading} text-[clamp(2.5rem,5.5vw,4.75rem)]`}>
             Good to know before you order.
@@ -543,20 +544,20 @@ export default function Home() {
           <div>
             {FAQ.map((item) => (
               <details key={item.q} data-rule className="group relative [&_summary::-webkit-details-marker]:hidden">
-                <span data-rule-line className="absolute inset-x-0 top-0 h-px origin-left bg-forest-950/20" />
+                <span data-rule-line className="absolute inset-x-0 top-0 h-px origin-left bg-beige-50/15" />
                 <summary
                   data-rule-text
-                  className="flex cursor-pointer list-none items-center justify-between gap-6 py-7 text-xl font-extrabold tracking-[-0.02em] sm:text-2xl"
+                  className="flex cursor-pointer list-none items-center justify-between gap-6 py-7 text-xl font-extrabold tracking-[-0.02em] transition-colors hover:text-secondary sm:text-2xl"
                 >
                   {item.q}
-                  <span aria-hidden className="text-3xl font-light leading-none transition duration-300 group-open:rotate-45">
+                  <span aria-hidden className="text-3xl font-light leading-none text-secondary transition duration-300 group-open:rotate-45">
                     +
                   </span>
                 </summary>
-                <p className="-mt-2 max-w-2xl pb-8 text-base leading-relaxed text-forest-900/70">{item.a}</p>
+                <p className="-mt-2 max-w-2xl pb-8 text-base leading-relaxed text-beige-100/65">{item.a}</p>
               </details>
             ))}
-            <span className="block h-px bg-forest-950/20" />
+            <span className="block h-px bg-beige-50/15" />
           </div>
         </div>
       </section>

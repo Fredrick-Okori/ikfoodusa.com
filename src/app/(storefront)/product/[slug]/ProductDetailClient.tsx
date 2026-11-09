@@ -147,7 +147,7 @@ export default function ProductDetailClient({
       <div className="flex min-h-[80vh] items-center bg-forest-950 text-beige-50">
         <div className="mx-auto w-full max-w-7xl px-5 py-24 sm:px-8 lg:px-12">
           <h1 className={`${heading} max-w-4xl text-[clamp(3rem,8vw,7.5rem)]`}>
-            Product not found<span className="text-secondary">.</span>
+            Product not found<span className="text-beige-300">.</span>
           </h1>
           <p className="mt-8 max-w-lg text-lg leading-relaxed text-beige-100/75 sm:text-xl">
             This product may have sold out or been renamed. Browse the shop for what&apos;s in stock today.
@@ -220,14 +220,15 @@ export default function ProductDetailClient({
     : "Sold out";
 
   return (
-    <div ref={rootRef} className="overflow-x-clip bg-beige-50 pb-28 text-forest-950 lg:pb-0">
-      <main className="mx-auto max-w-7xl px-5 pt-8 sm:px-8 lg:px-12 lg:pt-12">
-        <nav aria-label="Breadcrumb" data-pdp-in className="flex items-center gap-2 text-sm font-semibold text-forest-900/50">
-          <Link href="/" className="shrink-0 transition-colors hover:text-forest-950">Home</Link>
+    <div ref={rootRef} className="overflow-x-clip bg-beige-50 pb-28 text-beige-50 lg:pb-0">
+      <div className="bg-forest-950 text-beige-50">
+      <main className="mx-auto max-w-7xl px-5 pb-24 pt-8 sm:px-8 lg:px-12 lg:pb-32 lg:pt-12">
+        <nav aria-label="Breadcrumb" data-pdp-in className="flex items-center gap-2 text-sm font-semibold text-beige-100/50">
+          <Link href="/" className="shrink-0 transition-colors hover:text-secondary">Home</Link>
           <span aria-hidden>/</span>
-          <Link href={categoryHref(product.category)} className="shrink-0 whitespace-nowrap transition-colors hover:text-forest-950">{product.category}</Link>
+          <Link href={categoryHref(product.category)} className="shrink-0 whitespace-nowrap transition-colors hover:text-secondary">{product.category}</Link>
           <span aria-hidden>/</span>
-          <span className="min-w-0 truncate text-forest-950">{product.name}</span>
+          <span className="min-w-0 truncate text-beige-50">{product.name}</span>
         </nav>
 
         <div className="mt-8 grid grid-cols-1 items-start gap-12 lg:mt-12 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
@@ -235,7 +236,7 @@ export default function ProductDetailClient({
           <div className="lg:sticky lg:top-24">
             <div data-pdp-media className="relative aspect-square overflow-hidden rounded-[1.75rem] bg-white">
               {product.badge && (
-                <span className="absolute left-5 top-5 z-10 rounded-full bg-forest-950 px-4 py-1.5 text-sm font-extrabold text-secondary">
+                <span className="absolute left-5 top-5 z-10 rounded-full bg-forest-950 px-4 py-1.5 text-sm font-extrabold text-beige-50">
                   {product.badge}
                 </span>
               )}
@@ -247,11 +248,11 @@ export default function ProductDetailClient({
                 videoControls
               />
             </div>
-            <p data-pdp-in className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-bold text-forest-900/60">
+            <p data-pdp-in className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-bold text-beige-100/60">
               <span>Free US shipping over ${BRAND.freeShippingThreshold}</span>
-              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-secondary-deep" />
+              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-beige-300" />
               <span>100% pure vanilla</span>
-              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-secondary-deep" />
+              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-beige-300" />
               <span>Sourced from growers</span>
             </p>
           </div>
@@ -261,7 +262,7 @@ export default function ProductDetailClient({
             <Link
               href={categoryHref(product.category)}
               data-pdp-in
-              className="inline-block text-base font-extrabold text-forest-600 transition-colors hover:text-forest-950"
+              className="inline-block text-base font-extrabold text-beige-300 transition-colors hover:text-secondary"
             >
               {product.category}
               {product.subcategory ? ` · ${product.subcategory}` : ""}
@@ -269,32 +270,32 @@ export default function ProductDetailClient({
             <h1 key={product.name} data-pdp-title className={`${heading} mt-3 text-[clamp(2.5rem,5.2vw,4.75rem)]`}>
               {product.name}
             </h1>
-            {product.producer && <p data-pdp-in className="mt-4 text-base text-forest-900/65">by {product.producer}</p>}
+            {product.producer && <p data-pdp-in className="mt-4 text-base text-beige-100/65">by {product.producer}</p>}
 
             <div data-pdp-in className="mt-8 flex flex-wrap items-end gap-x-4 gap-y-2">
               <span className={`${heading} text-6xl`}>{formatUSD(product.numericPrice)}</span>
               {product.compareAtPrice && product.compareAtPrice > product.numericPrice && (
-                <span className="pb-1 text-xl font-bold text-forest-900/40 line-through">{formatUSD(product.compareAtPrice)}</span>
+                <span className="pb-1 text-xl font-bold text-beige-100/40 line-through">{formatUSD(product.compareAtPrice)}</span>
               )}
-              {product.size && <span className="pb-1.5 text-base text-forest-900/60">/ {formatSize(product.size)}</span>}
+              {product.size && <span className="pb-1.5 text-base text-beige-100/60">/ {formatSize(product.size)}</span>}
             </div>
             <p data-pdp-in className="mt-3 flex items-center gap-2 text-base font-extrabold">
               <span
                 aria-hidden
-                className={`h-2.5 w-2.5 rounded-full ${product.inStock ? (product.stockQuantity <= 10 ? "bg-amber-500" : "bg-secondary-deep") : "bg-red-600"}`}
+                className={`h-2.5 w-2.5 rounded-full ${product.inStock ? (product.stockQuantity <= 10 ? "bg-amber-500" : "bg-secondary") : "bg-red-500"}`}
               />
-              <span className={product.inStock ? "text-forest-950" : "text-red-700"}>{stockLabel}</span>
+              <span className={product.inStock ? "text-beige-50" : "text-red-400"}>{stockLabel}</span>
             </p>
 
             {product.description && (
-              <p data-pdp-in className="mt-8 whitespace-pre-line text-lg leading-relaxed text-forest-900/75">
+              <p data-pdp-in className="mt-8 whitespace-pre-line text-lg leading-relaxed text-beige-100/75">
                 {product.description}
               </p>
             )}
 
             {product.priceTiers?.length > 0 && (
               <div data-pdp-in className="mt-10">
-                <p className="text-sm font-bold text-forest-900/60">Volume pricing</p>
+                <p className="text-sm font-bold text-beige-100/60">Volume pricing</p>
                 <table className="mt-3 w-full text-base">
                   <tbody>
                     {[{ minQty: 1, price: product.numericPrice }, ...product.priceTiers].map((tier, i, all) => {
@@ -303,29 +304,29 @@ export default function ProductDetailClient({
                       return (
                         <tr
                           key={tier.minQty}
-                          className={`border-t border-forest-950/15 ${active ? "font-extrabold text-forest-950" : "text-forest-900/60"}`}
+                          className={`border-t border-beige-50/15 ${active ? "font-extrabold text-beige-50" : "text-beige-100/60"}`}
                         >
                           <td className={`py-3 ${active ? "border-l-4 border-l-secondary pl-3" : "pl-4"}`}>
                             {next ? `${tier.minQty}–${next.minQty - 1}` : `${tier.minQty}+`} units
                           </td>
                           <td className="py-3 text-right tabular-nums">{formatUSD(tier.price)} each</td>
-                          <td className="w-28 py-3 text-right text-sm text-secondary-deep">{active && "Your price"}</td>
+                          <td className="w-28 py-3 text-right text-sm text-beige-300">{active && "Your price"}</td>
                         </tr>
                       );
                     })}
                   </tbody>
                 </table>
-                <span className="block h-px bg-forest-950/15" />
+                <span className="block h-px bg-beige-50/15" />
               </div>
             )}
 
             {/* Purchase */}
             <div data-pdp-in className="mt-10 flex flex-wrap items-center gap-4">
-              <div className="flex h-14 items-center gap-1 border-b-2 border-forest-950/20">
+              <div className="flex h-14 items-center gap-1 border-b-2 border-beige-50/20">
                 <button
                   onClick={() => changeQuantity(quantity - 1)}
                   aria-label="Decrease quantity"
-                  className="flex h-11 w-11 items-center justify-center transition-colors hover:text-forest-600"
+                  className="flex h-11 w-11 items-center justify-center transition-colors hover:text-secondary"
                 >
                   <Minus size={16} />
                 </button>
@@ -333,7 +334,7 @@ export default function ProductDetailClient({
                 <button
                   onClick={() => changeQuantity(quantity + 1)}
                   aria-label="Increase quantity"
-                  className="flex h-11 w-11 items-center justify-center transition-colors hover:text-forest-600"
+                  className="flex h-11 w-11 items-center justify-center transition-colors hover:text-secondary"
                 >
                   <Plus size={16} />
                 </button>
@@ -345,7 +346,7 @@ export default function ProductDetailClient({
                 className={`flex h-14 items-center justify-center rounded-full border-2 px-7 text-sm font-extrabold transition-colors disabled:opacity-40 ${
                   added
                     ? "border-secondary bg-secondary text-forest-950"
-                    : "border-forest-950 text-forest-950 hover:bg-forest-950 hover:text-beige-50"
+                    : "border-beige-50 text-beige-50 hover:bg-beige-50 hover:text-forest-950"
                 }`}
               >
                 {added ? "Added to cart" : "Add to cart"}
@@ -354,24 +355,24 @@ export default function ProductDetailClient({
               <button
                 onClick={handleBuyNow}
                 disabled={!product.inStock}
-                className="flex h-14 min-w-[180px] flex-1 items-center justify-center rounded-full bg-forest-950 px-7 text-sm font-extrabold text-beige-50 transition-colors hover:bg-forest-800 disabled:opacity-40"
+                className="flex h-14 min-w-[180px] flex-1 items-center justify-center rounded-full bg-secondary px-7 text-sm font-extrabold text-forest-950 transition-colors hover:bg-secondary-dark disabled:opacity-40"
               >
                 {product.inStock ? "Buy now" : "Sold out"}
               </button>
             </div>
             {stockWarning && (
-              <p role="alert" className="mt-4 border-l-4 border-red-600 pl-4 text-sm font-semibold text-red-700">{stockWarning}</p>
+              <p role="alert" className="mt-4 border-l-4 border-red-600 pl-4 text-sm font-semibold text-red-300">{stockWarning}</p>
             )}
-            <p data-pdp-in className="mt-5 text-base text-forest-900/65">
+            <p data-pdp-in className="mt-5 text-base text-beige-100/65">
               {quantity > 1 && (
                 <>
                   {quantity} × {formatUSD(unit.price)} ={" "}
-                  <strong className="font-extrabold text-forest-950">{formatUSD(unit.price * quantity)}</strong>
+                  <strong className="font-extrabold text-beige-50">{formatUSD(unit.price * quantity)}</strong>
                   {" · "}
                 </>
               )}
               Buying for a business?{" "}
-              <Link href="/wholesale" className="border-b-2 border-forest-950 pb-0.5 font-extrabold text-forest-950 transition-colors hover:border-forest-950/40">
+              <Link href="/wholesale" className="border-b-2 border-secondary pb-0.5 font-extrabold text-secondary transition-colors hover:border-beige-50 hover:text-beige-50">
                 Trade pricing &amp; bulk quotes
               </Link>
             </p>
@@ -382,30 +383,31 @@ export default function ProductDetailClient({
                 <dl className="mt-6">
                   {specs.map((spec) => (
                     <div key={spec.label} data-rule className="relative flex items-baseline justify-between gap-6 py-4">
-                      <span data-rule-line className="absolute inset-x-0 top-0 h-px origin-left bg-forest-950/15" />
-                      <dt data-rule-text className="text-base text-forest-900/60">{spec.label}</dt>
+                      <span data-rule-line className="absolute inset-x-0 top-0 h-px origin-left bg-beige-50/15" />
+                      <dt data-rule-text className="text-base text-beige-100/60">{spec.label}</dt>
                       <dd data-rule-text className="text-right text-base font-extrabold">{spec.value}</dd>
                     </div>
                   ))}
                 </dl>
-                <span className="block h-px bg-forest-950/15" />
+                <span className="block h-px bg-beige-50/15" />
               </div>
             )}
           </div>
         </div>
       </main>
+      </div>
 
       {profile.length > 0 && (
-        <section className="mt-24 bg-forest-950 text-beige-50 lg:mt-32">
+        <section className="border-t border-beige-50/10 bg-forest-900 text-beige-50">
           <div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:px-12 lg:py-32">
             <h2 data-no-reveal data-split className={`${heading} text-[clamp(2.5rem,4.6vw,4.25rem)]`}>
-              How it tastes &amp; how to use it<span className="text-secondary">.</span>
+              How it tastes &amp; how to use <span className="whitespace-nowrap">it<span className="text-beige-300">.</span></span>
             </h2>
             <dl>
               {profile.map((item) => (
                 <div key={item.label} data-rule className="relative grid gap-2 py-7 sm:grid-cols-[9rem_1fr] sm:gap-8">
                   <span data-rule-line className="absolute inset-x-0 top-0 h-px origin-left bg-white/15" />
-                  <dt data-rule-text className="text-lg font-extrabold text-secondary">{item.label}</dt>
+                  <dt data-rule-text className="text-lg font-extrabold text-beige-300">{item.label}</dt>
                   <dd data-rule-text className="text-xl leading-relaxed text-beige-100/85 sm:text-2xl">{item.value}</dd>
                 </div>
               ))}
@@ -415,10 +417,10 @@ export default function ProductDetailClient({
       )}
 
       {related.length > 0 && (
-        <section className={`mx-auto max-w-7xl px-5 pb-24 sm:px-8 lg:px-12 lg:pb-36 ${profile.length > 0 ? "pt-24 lg:pt-32" : "mt-24 pt-0 lg:mt-32"}`}>
+        <section className={`mx-auto max-w-7xl px-5 pb-24 sm:px-8 lg:px-12 lg:pb-36 pt-24 lg:pt-32`}>
           <div className="mb-14 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <h2 data-no-reveal data-split className={`${heading} text-[clamp(2.75rem,6vw,5.25rem)]`}>
-              You might also like<span className="text-secondary-deep">.</span>
+              You might also like<span className="text-beige-400">.</span>
             </h2>
             <Link href="/shop" className="shrink-0 border-b-2 border-forest-950 pb-1 text-sm font-extrabold transition-colors hover:border-forest-950/40">
               View all
@@ -435,10 +437,10 @@ export default function ProductDetailClient({
       )}
 
       {/* Mobile purchase bar */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-forest-950/10 bg-beige-50/95 p-3 backdrop-blur-xl lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-beige-50/10 bg-forest-950/95 p-3 text-beige-50 backdrop-blur-xl lg:hidden">
         <div className="mx-auto flex max-w-lg items-center justify-between gap-3">
           <div className="min-w-0">
-            <span className="block text-xs font-bold text-forest-900/60">
+            <span className="block text-xs font-bold text-beige-100/60">
               Total · {quantity} {quantity === 1 ? "item" : "items"}
             </span>
             <span className="block text-2xl font-black tracking-[-0.04em]">{formatUSD(unit.price * quantity)}</span>
@@ -447,7 +449,7 @@ export default function ProductDetailClient({
             type="button"
             onClick={handleBuyNow}
             disabled={!product.inStock}
-            className="rounded-full bg-forest-950 px-6 py-3.5 text-sm font-extrabold text-beige-50 disabled:opacity-40"
+            className="rounded-full bg-secondary px-6 py-3.5 text-sm font-extrabold text-forest-950 disabled:opacity-40 transition-colors hover:bg-secondary-dark"
           >
             {product.inStock ? "Buy now" : "Sold out"}
           </button>

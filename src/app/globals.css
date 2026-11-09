@@ -32,6 +32,11 @@
 
   --color-vanilla-300: #e9c87d;
 
+  /* Burnt orange: the scroll-lit words and a few key phrases */
+  --color-ember-400: #e06a1f;
+  --color-ember-500: #cc5500;
+  --color-ember-600: #a84600;
+
   /* Aliases using the parent site's token names */
   --color-gold-400: var(--color-secondary);
   --color-gold-500: var(--color-secondary-dark);
@@ -184,7 +189,7 @@ button, a { cursor: pointer; }
   width: 0.6rem;
   height: 0.6rem;
   border-radius: 9999px;
-  background: var(--color-secondary);
+  background: var(--color-beige-400);
 }
 .legal-prose ol {
   list-style: decimal;

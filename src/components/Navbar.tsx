@@ -609,14 +609,14 @@ export function Navbar({ cartCount = 0 }: { cartCount?: number }) {
 
     {/* Mobile: no navbar, just a slim brand strip that scrolls away, so page content
         starts below the floating hamburger instead of underneath it. */}
-    <div className="relative flex h-[88px] items-center justify-center border-b border-beige-200 bg-beige-50 sm:h-24 lg:hidden">
+    <div className="relative flex h-[88px] items-center justify-center border-b border-beige-50/10 bg-forest-950 sm:h-24 lg:hidden">
       <Link href="/" aria-label={`${BRAND.name} home`} className="flex items-center">
         <Logo size="lg" />
       </Link>
       <Link
         href="/cart"
         aria-label={`Cart, ${cartCount} ${cartCount === 1 ? "item" : "items"}`}
-        className="absolute right-4 flex h-12 w-12 items-center justify-center rounded-full text-forest-900 transition hover:bg-beige-200 sm:right-6"
+        className="absolute right-4 flex h-12 w-12 items-center justify-center rounded-full text-beige-50 transition hover:bg-white/10 hover:text-secondary sm:right-6"
       >
         <ShoppingBag size={24} />
       </Link>
@@ -660,8 +660,8 @@ export function Navbar({ cartCount = 0 }: { cartCount?: number }) {
           headerHidden ? "opacity-100" : "opacity-0"
         }`}
       />
-      <div className="bg-forest-900 px-4 py-2 text-center text-[11px] font-semibold tracking-wide text-beige-100">
-        <Truck size={13} className="mr-1.5 inline-block text-secondary" />
+      <div className="border-b border-beige-50/10 bg-forest-950 px-4 py-2 text-center text-[11px] font-semibold tracking-wide text-beige-100/70">
+        <Truck size={13} className="mr-1.5 inline-block text-beige-300" />
         Free US shipping on orders over {formatUSD(BRAND.freeShippingThreshold)}
         <span className="hidden sm:inline">
           <span aria-hidden="true" className="mx-3 text-beige-100/30">|</span>
@@ -672,7 +672,7 @@ export function Navbar({ cartCount = 0 }: { cartCount?: number }) {
         </span>
       </div>
 
-      <div className="border-b border-beige-200 bg-beige-50/95 backdrop-blur-md">
+      <div className="border-b border-beige-50/10 bg-forest-950/95 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-[72px] lg:px-10">
           <Link href="/" aria-label={`${BRAND.name} home`} className="flex shrink-0 items-center">
             <Logo size="lg" />
@@ -684,7 +684,7 @@ export function Navbar({ cartCount = 0 }: { cartCount?: number }) {
                 key={link.href}
                 href={link.href}
                 aria-current={isCurrentPage(link.href, pathname) ? "page" : undefined}
-                className="rounded-full px-4 py-2 text-sm font-semibold text-forest-900 transition hover:bg-beige-200 aria-[current=page]:bg-beige-200"
+                className="rounded-full px-4 py-2 text-sm font-semibold text-beige-100/80 transition hover:bg-white/10 hover:text-beige-50 aria-[current=page]:bg-white/10 aria-[current=page]:text-beige-50"
               >
                 {link.label}
               </Link>
@@ -698,7 +698,7 @@ export function Navbar({ cartCount = 0 }: { cartCount?: number }) {
                 aria-label="Search products"
                 aria-expanded={searchOpen}
                 onClick={() => setSearchOpen((open) => !open)}
-                className="flex h-10 w-10 items-center justify-center rounded-full text-forest-900 transition hover:bg-beige-200"
+                className="flex h-10 w-10 items-center justify-center rounded-full text-beige-100/80 transition hover:bg-white/10 hover:text-beige-50"
               >
                 <Search size={18} />
               </button>
@@ -752,11 +752,11 @@ export function Navbar({ cartCount = 0 }: { cartCount?: number }) {
             <Link
               href="/cart"
               aria-label={`Cart, ${cartCount} ${cartCount === 1 ? "item" : "items"}`}
-              className="relative flex h-10 items-center gap-2 rounded-full bg-forest-900 px-4 text-sm font-bold text-beige-50 transition hover:bg-forest-800"
+              className="relative flex h-10 items-center gap-2 rounded-full bg-secondary px-4 text-sm font-extrabold text-forest-950 transition hover:bg-secondary-dark"
             >
               <ShoppingBag size={16} />
               <span className="hidden sm:inline">Cart</span>
-              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-secondary px-1.5 text-[11px] font-extrabold text-forest-950">
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-forest-950 px-1.5 text-[11px] font-extrabold text-beige-50">
                 {cartCount}
               </span>
             </Link>
